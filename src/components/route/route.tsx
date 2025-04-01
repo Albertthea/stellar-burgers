@@ -6,7 +6,9 @@ type ProtectedRouteProps = {
   forAuthorized: boolean;
 };
 
-export const Route = ({ forAuthorized = false }: ProtectedRouteProps) => {
+export const RouteProtected = ({
+  forAuthorized = false
+}: ProtectedRouteProps) => {
   const location = useLocation();
   const isAuthorized = useSelector(isAuthorizedSelector);
   const from = location.state?.from || '/';
