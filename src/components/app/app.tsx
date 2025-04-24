@@ -34,7 +34,7 @@ const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const userLoading = useSelector(getUserStateSelector).isLoadong;
+  const userLoading = useSelector(getUserStateSelector).isLoading;
   const backgroundLocation = location.state?.background;
 
   useEffect(() => {
