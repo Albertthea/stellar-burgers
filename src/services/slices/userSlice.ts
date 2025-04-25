@@ -153,19 +153,16 @@ export const userSlice = createSlice({
         state.error = null;
       })
       .addCase(getUserThunk.pending, (state) => {
-        console.log('getUserThunk pending');
         state.isLoading = true;
         state.error = null;
       })
       .addCase(getUserThunk.fulfilled, (state, { payload }) => {
-        console.log('getUserThunk fulfilled', payload);
         state.isLoading = false;
         state.error = null;
         state.isAuthorized = true;
         state.user = payload.user;
       })
       .addCase(getUserThunk.rejected, (state, action) => {
-        console.log('getUserThunk rejected', action);
         state.isLoading = false;
         state.error = action.error.message as string;
       });
