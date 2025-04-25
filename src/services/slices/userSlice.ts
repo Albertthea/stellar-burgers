@@ -64,12 +64,6 @@ export const userSlice = createSlice({
       state.error = null;
     }
   },
-  selectors: {
-    getUserStateSelector: (state) => state,
-    getUserSelector: (state) => state.user,
-    isAuthorizedSelector: (state) => state.isAuthorized,
-    getUserErrorSelector: (state) => state.error
-  },
   extraReducers: (builder) => {
     builder
       .addCase(loginUserThunk.pending, (state) => {
@@ -159,29 +153,34 @@ export const userSlice = createSlice({
         state.error = null;
       })
       .addCase(getUserThunk.pending, (state) => {
+        console.log('getUserThunk pending');
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(getUserThunk.rejected, (state, { error }) => {
-        state.isLoading = false;
-        state.error = error.message as string;
-      })
       .addCase(getUserThunk.fulfilled, (state, { payload }) => {
+        console.log('getUserThunk fulfilled', payload);
         state.isLoading = false;
         state.error = null;
         state.isAuthorized = true;
         state.user = payload.user;
+      })
+      .addCase(getUserThunk.rejected, (state, action) => {
+        console.log('getUserThunk rejected', action);
+        state.isLoading = false;
+        state.error = action.error.message as string;
       });
   }
 });
 
 export { initialState as userInitialState };
+export const getUserStateSelector = (state: { user: UserState }) => state.user;
+export const getUserSelector = (state: { user: UserState }) => state.user.user;
+export const isAuthorizedSelector = (state: { user: UserState }) =>
+  state.user.isAuthorized;
+
+export const getUserErrorSelector = (state: { user: UserState }) =>
+  state.user.error;
+
 export const { clearUserError } = userSlice.actions;
-export const {
-  getUserStateSelector,
-  getUserSelector,
-  isAuthorizedSelector,
-  getUserErrorSelector
-} = userSlice.selectors;
 
 export default userSlice.reducer;

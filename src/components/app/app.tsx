@@ -36,6 +36,7 @@ const App = () => {
   const dispatch = useDispatch();
   const userLoading = useSelector(getUserStateSelector).isLoading;
   const backgroundLocation = location.state?.background;
+  const userState = useSelector(getUserStateSelector);
 
   useEffect(() => {
     dispatch(getUserThunk());
