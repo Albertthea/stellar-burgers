@@ -55,7 +55,7 @@ export const resetPasswordThunk = createAsyncThunk(
 
 export const getUserThunk = createAsyncThunk('user/get', getUserApi);
 
-export const personSlice = createSlice({
+export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
@@ -175,12 +175,12 @@ export const personSlice = createSlice({
 });
 
 export { initialState as userInitialState };
-export const { clearUserError } = personSlice.actions;
+export const { clearUserError } = userSlice.actions;
 export const {
   getUserStateSelector,
   getUserSelector,
   isAuthorizedSelector,
   getUserErrorSelector
-} = personSlice.selectors;
+} = userSlice.selectors;
 
-export default personSlice.reducer;
+export default userSlice.reducer;
