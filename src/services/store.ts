@@ -6,10 +6,12 @@ import {
 } from 'react-redux';
 import ingredientsReducer from './slices/ingredientsSlice';
 import constructorReducer from './slices/constructorSlice';
+import orderReducer from './slices/orderSlice';
 
 const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   constructor: constructorReducer,
+  order: orderReducer
 });
 
 const store = configureStore({
