@@ -7,8 +7,10 @@ import {
 import ingredientsReducer from './slices/ingredientsSlice';
 import constructorReducer from './slices/constructorSlice';
 import orderReducer from './slices/orderSlice';
+import personReducer from './slices/personSlice';
 
 const rootReducer = combineReducers({
+  user: personReducer,
   ingredients: ingredientsReducer,
   constructor: constructorReducer,
   order: orderReducer
