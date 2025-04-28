@@ -7,7 +7,7 @@ import {
   setOrderRequest,
   sendOrderThunk,
   setNullOrderModalData,
-  isAuthorizedSelector,
+  selectIsAuthorized,
   getConstructorSelector
 } from '@slices';
 
@@ -15,7 +15,7 @@ export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const constructorState = useSelector(getConstructorSelector);
-  const isAuthorized = useSelector(isAuthorizedSelector);
+  const isAuthorized = useSelector(selectIsAuthorized);
 
   const constructorItems = constructorState.constructorItems;
   const orderRequest = constructorState.orderRequest;
