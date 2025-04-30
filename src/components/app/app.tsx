@@ -24,12 +24,14 @@ import { getIngredientsThunk, selectUserState, getUserThunk } from '@slices';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Preloader } from '../ui/preloader';
+import { RootState } from '../../services/store';
 
 const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const userLoading = useSelector(selectUserState).isLoading;
+  const userLoading = useSelector((state: RootState) => state.user.isLoading);
+  console.log('userLoading:', userLoading);
   const backgroundLocation = location.state?.background;
 
   useEffect(() => {
@@ -37,9 +39,10 @@ const App = () => {
     dispatch(getIngredientsThunk());
   }, [dispatch]);
 
-  if (userLoading) {
-    return <Preloader />;
-  }
+  // if (userLoading) {
+  //   console.log('userLoading:', userLoading);
+  //   return <Preloader />;
+  // }
 
   return (
     <div className={styles.app}>
