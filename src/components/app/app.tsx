@@ -20,7 +20,7 @@ import {
   RouteProtected
 } from '@components';
 import { useDispatch } from '../../services/store';
-import { getIngredientsThunk, selectUserState, getUserThunk } from '@slices';
+import { fetchIngredients, selectUserState, getUserThunk } from '@slices';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Preloader } from '../ui/preloader';
@@ -31,18 +31,12 @@ const App = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const userLoading = useSelector((state: RootState) => state.user.isLoading);
-  console.log('userLoading:', userLoading);
   const backgroundLocation = location.state?.background;
 
   useEffect(() => {
     dispatch(getUserThunk());
-    dispatch(getIngredientsThunk());
+    dispatch(fetchIngredients());
   }, [dispatch]);
-
-  // if (userLoading) {
-  //   console.log('userLoading:', userLoading);
-  //   return <Preloader />;
-  // }
 
   return (
     <div className={styles.app}>
