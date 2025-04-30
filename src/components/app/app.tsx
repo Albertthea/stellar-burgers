@@ -26,11 +26,11 @@ import { useSelector } from 'react-redux';
 import { Preloader } from '../ui/preloader';
 
 const App = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const backgroundLocation = location.state?.background;
+  const dispatch = useDispatch();
   const userLoading = useSelector(selectUserState).isLoading;
+  const backgroundLocation = location.state?.background;
 
   useEffect(() => {
     dispatch(getUserThunk());
@@ -46,30 +46,26 @@ const App = () => {
       <AppHeader />
       <Routes location={backgroundLocation || location}>
         <Route path='/' element={<ConstructorPage />} />
-        <Route path='/feed' element={<Feed />} />
-
         {!backgroundLocation && (
           <>
             <Route path='/ingredients/:id' element={<IngredientDetails />} />
             <Route path='/feed/:number' element={<OrderInfo />} />
+            <Route element={<RouteProtected forAuthorized />}>
+              <Route path='/profile/orders/:number' element={<OrderInfo />} />
+            </Route>
           </>
         )}
-
+        <Route path='/feed' element={<Feed />} />
         <Route element={<RouteProtected forAuthorized={false} />}>
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/reset-password' element={<ResetPassword />} />
         </Route>
-
         <Route element={<RouteProtected forAuthorized />}>
           <Route path='/profile' element={<Profile />} />
           <Route path='/profile/orders' element={<ProfileOrders />} />
-          {!backgroundLocation && (
-            <Route path='/profile/orders/:number' element={<OrderInfo />} />
-          )}
         </Route>
-
         <Route path='*' element={<NotFound404 />} />
       </Routes>
 
