@@ -22,6 +22,10 @@ export const BurgerConstructor: FC = () => {
 
   const orderModalData = constructorState.orderModalData;
 
+  if (!constructorItems) {
+    return null;
+  }
+
   const onOrderClick = () => {
     if (constructorItems.bun && !isAuthorized) navigate('/login');
     if (constructorItems.bun && isAuthorized) {

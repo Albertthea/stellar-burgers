@@ -34,8 +34,17 @@ const constructorSlice = createSlice({
   initialState,
   reducers: {
     addIngredient: (state, action) => {
+      const ingredient = action.payload;
+      if (
+        typeof ingredient !== 'object' ||
+        !ingredient.type ||
+        !ingredient._id
+      ) {
+        console.warn('Invalid ingredient payload', ingredient);
+        return;
+      }
       if (action.payload.type === 'bun') {
-        state.constructorItems.bun = action.payload;
+        state.constructorItems.bun = ingredient;
       } else {
         state.constructorItems.ingredients.push({
           ...action.payload,
