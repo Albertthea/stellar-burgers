@@ -47,8 +47,14 @@ const App = () => {
       <Routes location={backgroundLocation || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
-        <Route path='/ingredients/:id' element={<IngredientDetails />} />
-        <Route path='/feed/:number' element={<OrderInfo />} />
+
+        {!backgroundLocation && (
+          <>
+            <Route path='/ingredients/:id' element={<IngredientDetails />} />
+            <Route path='/feed/:number' element={<OrderInfo />} />
+          </>
+        )}
+
         <Route element={<RouteProtected forAuthorized={false} />}>
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
@@ -59,7 +65,9 @@ const App = () => {
         <Route element={<RouteProtected forAuthorized />}>
           <Route path='/profile' element={<Profile />} />
           <Route path='/profile/orders' element={<ProfileOrders />} />
-          <Route path='/profile/orders/:number' element={<OrderInfo />} />
+          {!backgroundLocation && (
+            <Route path='/profile/orders/:number' element={<OrderInfo />} />
+          )}
         </Route>
 
         <Route path='*' element={<NotFound404 />} />
