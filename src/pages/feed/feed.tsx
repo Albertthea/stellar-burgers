@@ -9,7 +9,6 @@ export const Feed: FC = () => {
   const { orders, isLoading } = useSelector(selectFeedState);
 
   useEffect(() => {
-    console.log('[FEED] dispatch getFeedThunk');
     dispatch(getFeedThunk());
   }, [dispatch]);
 

@@ -12,6 +12,7 @@ import {
 } from '@slices';
 
 export const BurgerConstructor: FC = () => {
+  console.log('[BurgerConstructor] render');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const constructorState = useSelector(getConstructorSelector);
@@ -22,9 +23,12 @@ export const BurgerConstructor: FC = () => {
 
   const orderModalData = constructorState.orderModalData;
 
-  if (!constructorItems) {
-    return null;
-  }
+  // if (!constructorItems) {
+  //   return null;
+  // }
+  // if (!constructorItems) {
+  //   return <div>constructorItems is null</div>;
+  // }
 
   const onOrderClick = () => {
     if (constructorItems.bun && !isAuthorized) navigate('/login');
@@ -54,7 +58,7 @@ export const BurgerConstructor: FC = () => {
       ) ?? 0;
     return bunPrice + ingredientsPrice;
   }, [constructorItems]);
-
+  console.log('constructorItems:', constructorItems);
   return (
     <BurgerConstructorUI
       price={price}

@@ -6,11 +6,13 @@ import { BurgerIngredients } from '../../components';
 import { BurgerConstructor } from '../../components';
 import { Preloader } from '../../components/ui';
 import { FC } from 'react';
+import { getIngredientsStateSelector } from '@slices';
 
 export const ConstructorPage: FC = () => {
-  /** TODO: взять переменную из стора */
-  const isIngredientsLoading = false;
-
+  const ingredientsState = useSelector(getIngredientsStateSelector);
+  const isIngredientsLoading = useSelector(getIngredientsStateSelector).loading;
+  const fullState = useSelector((state) => state);
+  console.log('[FULL REDUX STATE]', fullState);
   return (
     <>
       {isIngredientsLoading ? (
