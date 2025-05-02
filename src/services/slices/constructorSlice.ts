@@ -1,6 +1,7 @@
 import { TConstructorIngredient, TOrder } from '@utils-types';
 import { createSlice, createAsyncThunk, nanoid } from '@reduxjs/toolkit';
 import { orderBurgerApi } from '@api';
+import { RootState } from '../store';
 
 export interface ConstructorState {
   isLoading: boolean;
@@ -106,9 +107,7 @@ const constructorSlice = createSlice({
   }
 });
 
-export const getConstructorSelector = (state: {
-  constructor: ConstructorState;
-}) => state.constructor;
+export const getConstructorSelector = (state: RootState) => state.constructor;
 
 export const {
   addIngredient,
