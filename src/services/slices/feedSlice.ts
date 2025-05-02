@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getFeedsApi, getOrdersApi } from '@api';
 import { TOrder } from '@utils-types';
+import { RootState } from '../store';
 
 export interface FeedState {
   isLoading: boolean;
@@ -28,10 +29,6 @@ const feedSlice = createSlice({
   name: 'feed',
   initialState,
   reducers: {},
-  selectors: {
-    selectFeedState: (state) => state,
-    selectOrders: (state) => state.orders
-  },
   extraReducers: (builder) => {
     builder
       .addCase(getFeedThunk.pending, handlePending)
@@ -63,6 +60,7 @@ function handleRejected(state: FeedState, action: any) {
   state.error = action.error?.message || 'Произошла ошибка';
 }
 
-export const { selectFeedState, selectOrders } = feedSlice.selectors;
+export const selectFeedState = (state: RootState) => state.feed;
+export const selectOrders = (state: RootState) => state.feed.orders;
 export { initialState as feedInitialState };
 export default feedSlice.reducer;
