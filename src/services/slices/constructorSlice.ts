@@ -26,12 +26,12 @@ const initialState: ConstructorState = {
 };
 
 export const sendOrderThunk = createAsyncThunk(
-  'constructor/sendOrder',
+  'constructorburger/sendOrder',
   (data: string[]) => orderBurgerApi(data)
 );
 
 const constructorSlice = createSlice({
-  name: 'constructor',
+  name: 'constructorburger',
   initialState,
   reducers: {
     addIngredient: (state, action) => {
@@ -106,8 +106,8 @@ const constructorSlice = createSlice({
       });
   }
 });
-
-export const getConstructorSelector = (state: RootState) => state.constructor;
+export const getConstructorSelector = (state: RootState) =>
+  state.constructorburger;
 
 export const {
   addIngredient,

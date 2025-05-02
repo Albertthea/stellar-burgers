@@ -13,9 +13,9 @@ import feedReducer from './slices/feedSlice';
 const rootReducer = combineReducers({
   user: personReducer,
   ingredients: ingredientsReducer,
-  constructor: constructorReducer,
   order: orderReducer,
-  feed: feedReducer
+  feed: feedReducer,
+  constructorburger: constructorReducer
 });
 console.log('[store.ts] constructorReducer ===', constructorReducer);
 const store = configureStore({
