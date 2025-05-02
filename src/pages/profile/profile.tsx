@@ -1,10 +1,12 @@
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
-import { useSelector } from '../../services/store';
-import { selectUser } from '@slices';
+import { useSelector, useDispatch } from '../../services/store';
+import { selectUser, updateUserThunk } from '@slices';
 
 export const Profile: FC = () => {
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  const [errorText, setErrorText] = useState('');
 
   const [formValue, setFormValue] = useState({
     name: user?.name || '',
@@ -27,6 +29,21 @@ export const Profile: FC = () => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
+    dispatch(
+      updateUserThunk({
+        name: formValue.name,
+        email: formValue.email,
+        ...(formValue.password ? { password: formValue.password } : {})
+      })
+    )
+      .unwrap()
+      .then(() => {
+        setErrorText('');
+        setFormValue((prev) => ({ ...prev, password: '' }));
+      })
+      .catch(() => {
+        setErrorText('Не удалось сохранить изменения');
+      });
   };
 
   const handleCancel = (e: SyntheticEvent) => {
