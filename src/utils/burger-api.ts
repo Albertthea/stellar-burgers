@@ -83,7 +83,6 @@ export const getFeedsApi = () =>
   fetch(`${URL}/orders/all`)
     .then((res) => checkResponse<TFeedsResponse>(res))
     .then((data) => {
-      console.log('[API] getFeedsApi result:', data);
       if (data?.success) return data;
       return Promise.reject(data);
     });

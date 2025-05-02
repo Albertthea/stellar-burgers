@@ -17,7 +17,6 @@ const rootReducer = combineReducers({
   feed: feedReducer,
   constructorburger: constructorReducer
 });
-console.log('[store.ts] constructorReducer ===', constructorReducer);
 const store = configureStore({
   reducer: rootReducer,
   devTools: process.env.NODE_ENV !== 'production'
