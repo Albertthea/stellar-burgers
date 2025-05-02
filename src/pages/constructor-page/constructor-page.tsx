@@ -12,7 +12,6 @@ export const ConstructorPage: FC = () => {
   const ingredientsState = useSelector(getIngredientsStateSelector);
   const isIngredientsLoading = useSelector(getIngredientsStateSelector).loading;
   const fullState = useSelector((state) => state);
-  console.log('[FULL REDUX STATE]', fullState);
   return (
     <>
       {isIngredientsLoading ? (
