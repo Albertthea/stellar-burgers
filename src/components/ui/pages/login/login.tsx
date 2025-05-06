@@ -35,6 +35,7 @@ export const LoginUI: FC<LoginUIProps> = ({
               error={false}
               errorText=''
               size='default'
+              autoComplete='email'
             />
           </div>
           <div className='pb-6'>
