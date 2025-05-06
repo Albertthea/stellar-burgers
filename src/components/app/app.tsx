@@ -17,14 +17,13 @@ import {
   Modal,
   OrderInfo,
   IngredientDetails,
-  RouteProtected
+  RouteProtected,
+  Center
 } from '@components';
 import { useDispatch } from '../../services/store';
 import { fetchIngredients, selectUserState, getUserThunk } from '@slices';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Preloader } from '../ui/preloader';
-import { RootState } from '../../services/store';
 
 const App = () => {
   const navigate = useNavigate();
@@ -45,10 +44,31 @@ const App = () => {
         <Route path='/' element={<ConstructorPage />} />
         {!backgroundLocation && (
           <>
-            <Route path='/ingredients/:id' element={<IngredientDetails />} />
-            <Route path='/feed/:number' element={<OrderInfo />} />
+            <Route
+              path='/ingredients/:id'
+              element={
+                <Center title={`Детали ингредиента`}>
+                  <IngredientDetails />
+                </Center>
+              }
+            />
+            <Route
+              path='/feed/:number'
+              element={
+                <Center title={`#${location.pathname.match(/\d+/)}`}>
+                  <OrderInfo />
+                </Center>
+              }
+            />
             <Route element={<RouteProtected forAuthorized />}>
-              <Route path='/profile/orders/:number' element={<OrderInfo />} />
+              <Route
+                path='/profile/orders/:number'
+                element={
+                  <Center title={`#${location.pathname.match(/\d+/)}`}>
+                    <OrderInfo />
+                  </Center>
+                }
+              />
             </Route>
           </>
         )}
