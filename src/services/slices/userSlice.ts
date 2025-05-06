@@ -11,6 +11,13 @@ import {
 import { TRegisterData, TLoginData } from '@api';
 import { TUser } from '@utils-types';
 import { deleteCookie, setCookie } from '../../utils/cookie';
+import { SerializedError } from '@reduxjs/toolkit';
+
+type AuthResponsePayload = {
+  user: TUser;
+  accessToken: string;
+  refreshToken: string;
+};
 
 export interface UserState {
   isLoading: boolean;
@@ -127,12 +134,12 @@ function handlePending(state: UserState) {
   state.error = null;
 }
 
-function handleRejected(state: UserState, action: any) {
+function handleRejected(state: UserState, action: { error: SerializedError }) {
   state.isLoading = false;
   state.error = action.error?.message || 'Ошибка авторизации';
 }
 
-function handleSuccessAuth(state: UserState, payload: any) {
+function handleSuccessAuth(state: UserState, payload: AuthResponsePayload) {
   state.isLoading = false;
   state.error = null;
   state.user = payload.user;

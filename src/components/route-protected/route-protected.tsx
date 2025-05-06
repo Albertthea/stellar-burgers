@@ -1,11 +1,11 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { useSelector } from '../../services/store';
+import { useSelector, RootState } from '../../services/store';
 
 interface Props {
   forAuthorized: boolean;
 }
 
-const isAuthorizedSelector = (state: any) => state.user?.isAuthorized;
+const isAuthorizedSelector = (state: RootState) => state.user?.isAuthorized;
 
 export const RouteProtected = ({ forAuthorized }: Props) => {
   const isAuthorized = useSelector(isAuthorizedSelector);

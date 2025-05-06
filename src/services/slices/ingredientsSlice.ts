@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TIngredient } from '@utils-types';
 import { getIngredientsApi } from '../../utils/burger-api';
+import { SerializedError } from '@reduxjs/toolkit';
 
 interface IngredientsState {
   items: TIngredient[];
@@ -20,8 +21,11 @@ export const fetchIngredients = createAsyncThunk(
     try {
       const data = await getIngredientsApi();
       return data;
-    } catch (error: any) {
-      return rejectWithValue(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+      return rejectWithValue('Произошла неизвестная ошибка');
     }
   }
 );

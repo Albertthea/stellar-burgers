@@ -10,15 +10,17 @@ import {
   getOrderThunk
 } from '../../services/slices/orderSlice';
 import { useParams } from 'react-router-dom';
+import type { AppDispatch } from '../../services/store';
+export const useAppDispatch = () => useDispatch<AppDispatch>();
 
 export const OrderInfo: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { number } = useParams<{ number: string }>();
   const orderNumber = Number(number);
 
   useEffect(() => {
     if (!isNaN(orderNumber)) {
-      dispatch(getOrderThunk(orderNumber) as any);
+      dispatch(getOrderThunk(orderNumber));
     }
   }, [dispatch, orderNumber]);
 

@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getFeedsApi, getOrdersApi } from '@api';
 import { TOrder } from '@utils-types';
 import { RootState } from '../store';
+import { SerializedError } from '@reduxjs/toolkit';
 
 export interface FeedState {
   isLoading: boolean;
@@ -55,7 +56,7 @@ function handlePending(state: FeedState) {
   state.error = null;
 }
 
-function handleRejected(state: FeedState, action: any) {
+function handleRejected(state: FeedState, action: { error: SerializedError }) {
   state.isLoading = false;
   state.error = action.error?.message || 'Произошла ошибка';
 }
