@@ -9,9 +9,7 @@ import { FC } from 'react';
 import { getIngredientsStateSelector } from '@slices';
 
 export const ConstructorPage: FC = () => {
-  const ingredientsState = useSelector(getIngredientsStateSelector);
   const isIngredientsLoading = useSelector(getIngredientsStateSelector).loading;
-  const fullState = useSelector((state) => state);
   return (
     <>
       {isIngredientsLoading ? (

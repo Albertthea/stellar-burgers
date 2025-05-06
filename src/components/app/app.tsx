@@ -21,15 +21,13 @@ import {
   Center
 } from '@components';
 import { useDispatch } from '../../services/store';
-import { fetchIngredients, selectUserState, getUserThunk } from '@slices';
+import { fetchIngredients, getUserThunk } from '@slices';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 
 const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const userLoading = useSelector(selectUserState).isLoading;
   const backgroundLocation = location.state?.background;
 
   useEffect(() => {
