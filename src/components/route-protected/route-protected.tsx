@@ -16,7 +16,8 @@ export const RouteProtected = ({ forAuthorized }: Props) => {
   }
 
   if (!forAuthorized && isAuthorized) {
-    return <Navigate to='/' replace />;
+    const from = location.state?.from?.pathname || '/';
+    return <Navigate to={from} replace />;
   }
 
   return <Outlet />;
