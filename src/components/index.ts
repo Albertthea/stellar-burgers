@@ -13,3 +13,4 @@ export * from './order-status';
 export * from './orders-list';
 export * from './profile-menu';
 export * from './route-protected';
+export * from './center';
