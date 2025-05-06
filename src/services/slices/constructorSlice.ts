@@ -2,6 +2,7 @@ import { TConstructorIngredient, TOrder } from '@utils-types';
 import { createSlice, createAsyncThunk, nanoid } from '@reduxjs/toolkit';
 import { orderBurgerApi } from '@api';
 import { RootState } from '../store';
+import { PayloadAction } from '@reduxjs/toolkit';
 
 export interface ConstructorState {
   isLoading: boolean;
@@ -34,24 +35,21 @@ const constructorSlice = createSlice({
   name: 'constructorburger',
   initialState,
   reducers: {
-    addIngredient: (state, action) => {
-      const ingredient = action.payload;
-      if (
-        typeof ingredient !== 'object' ||
-        !ingredient.type ||
-        !ingredient._id
-      ) {
-        console.warn('Invalid ingredient payload', ingredient);
-        return;
-      }
-      if (action.payload.type === 'bun') {
-        state.constructorItems.bun = ingredient;
-      } else {
-        state.constructorItems.ingredients.push({
-          ...action.payload,
-          id: nanoid()
-        });
-      }
+    addIngredient: {
+      reducer: (state, action: PayloadAction<TConstructorIngredient>) => {
+        const ingredient = action.payload;
+        if (ingredient.type === 'bun') {
+          state.constructorItems.bun = ingredient;
+        } else {
+          state.constructorItems.ingredients.push(ingredient);
+        }
+      },
+      prepare: (ingredient: Omit<TConstructorIngredient, 'id'>) => ({
+        payload:
+          ingredient.type === 'bun'
+            ? (ingredient as TConstructorIngredient)
+            : { ...ingredient, id: nanoid() }
+      })
     },
     removeIngredient: (state, action) => {
       state.constructorItems.ingredients =
@@ -65,22 +63,24 @@ const constructorSlice = createSlice({
     setNullOrderModalData: (state) => {
       state.orderModalData = null;
     },
-    moveIngredientDown: (state, action) => {
+    moveIngredientDown: (state, action: PayloadAction<number>) => {
+      const idx = action.payload;
       [
-        state.constructorItems.ingredients[action.payload],
-        state.constructorItems.ingredients[action.payload + 1]
+        state.constructorItems.ingredients[idx],
+        state.constructorItems.ingredients[idx + 1]
       ] = [
-        state.constructorItems.ingredients[action.payload + 1],
-        state.constructorItems.ingredients[action.payload]
+        state.constructorItems.ingredients[idx + 1],
+        state.constructorItems.ingredients[idx]
       ];
     },
-    moveIngredientUp: (state, action) => {
+    moveIngredientUp: (state, action: PayloadAction<number>) => {
+      const idx = action.payload;
       [
-        state.constructorItems.ingredients[action.payload],
-        state.constructorItems.ingredients[action.payload - 1]
+        state.constructorItems.ingredients[idx],
+        state.constructorItems.ingredients[idx - 1]
       ] = [
-        state.constructorItems.ingredients[action.payload - 1],
-        state.constructorItems.ingredients[action.payload]
+        state.constructorItems.ingredients[idx - 1],
+        state.constructorItems.ingredients[idx]
       ];
     }
   },
