@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent, useState } from 'react';
+import { FC, useState, FormEvent } from 'react';
 import { LoginUI } from '@ui-pages';
 import { useDispatch } from '../../services/store';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -12,7 +12,7 @@ export const Login: FC = () => {
   const [password, setPassword] = useState('');
 
   const from = (location.state as { from?: Location })?.from?.pathname || '/';
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(loginUserThunk({ email, password }))
       .unwrap()
